@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fengfan.mybatis.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.fengfan.mybatis.pojo.User">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <insert id="insert" parameterType="com.fengfan.mybatis.pojo.User">
+
+    insert into user (username, birthday, sex, 
+      address)
+    values (#{username,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{sex,jdbcType=CHAR}, 
+      #{address,jdbcType=VARCHAR})
+  </insert>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id,username,birthday,sex,address from user
+  </select>
+
+
+  <select id="findUserById" resultType="com.fengfan.mybatis.pojo.User">
+    select id,username,birthday,sex,address from user where id =#{id}
+  </select>
+
+  <select id="count" parameterType="string" resultType="int">
+    select COUNT(*) from user where sex=#{string}
+  </select>
+
+  <select id="countLike" parameterType="string" resultType="int">
+    select COUNT(*) from user where username like  "%"#{string}"%"
+  </select>
+
+</mapper>
